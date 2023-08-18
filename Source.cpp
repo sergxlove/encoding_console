@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <fstream>
 #include <ctime>
+#include <bitset>
 #include "menu.h"
 #include "enum.h"
 using namespace std;
@@ -12,6 +13,10 @@ int main()
 	srand(time(NULL));
 	int exit = var_exit::NO;
 	int var_nav_console;
+	unsigned int value;
+	const int n = 8;
+	int count = 0;
+	string code_symbol;
 	string path = "encoding.txt";
 	fstream encod;
 	while (exit != var_exit::YES)
@@ -21,10 +26,20 @@ int main()
 		switch (var_nav_console)
 		{
 		case 1:
-			encod.open(path, fstream::in | fstream::out | fstream::app);
+			encod.open(path, fstream::in | fstream::out | fstream::trunc);
 			if (encod.is_open())
 			{
 				cout << "Файл успешно открыт" << endl;
+				encod.clear();
+				value = rand() % 80 + 130;
+				while (count < 33)
+				{
+					code_symbol = bitset<n>(value).to_string();
+					encod << code_symbol << endl;
+					value++;
+					count++;
+				}
+				encod.close();
 			}
 			else
 			{
