@@ -21,3 +21,7 @@ void info_console()
 	}
 	std::cout << std::endl;
 }
+void done(std::string name_file)
+{
+	std::cout << "Файл " << name_file << " успешно открыт" << std::endl;
+}
