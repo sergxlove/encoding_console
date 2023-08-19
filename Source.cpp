@@ -25,7 +25,11 @@ int main()
 	fstream encod;
 	fstream encoded_text;
 	fstream alfabet;
+	int delete_encod = var_exit::NO;
+	int delete_encoded_text = var_exit::NO;
 	int j = 1;
+	int ordinal_number = 1;
+	int var_delete;
 	while (exit != var_exit::YES)
 	{
 		info_console();
@@ -108,6 +112,7 @@ int main()
 					getline(encoded_text, symbol);
 					cout << symbol << endl;
 				}
+				encoded_text.close();
 			}
 			else
 			{
@@ -117,6 +122,69 @@ int main()
 		case 4:
 			break;
 		case 5:
+			path = "encoded_text.txt";
+			encoded_text.open(path, fstream::out);
+			path = "encoding.txt";
+			encod.open(path, fstream::out);
+			if (encod.is_open() && encoded_text.is_open())
+			{
+				done("encoded_text.txt", "encoding.txt");
+				if (encod.good() == false || encod.eof() == false)
+				{
+					delete_encod = var_exit::YES;
+				}
+				if (encoded_text.good() == false || encoded_text.eof() == false)
+				{
+					delete_encoded_text = var_exit::YES;
+				}
+				if (delete_encod == var_exit::NO && delete_encoded_text == var_exit::NO)
+				{
+					cout << "Нет доступных файлов для удаления" << endl;
+				}
+				else
+				{
+					cout << "Доступные файлы для удаления" << endl;
+					if (delete_encod == var_exit::YES)
+					{
+						cout << ordinal_number << " - encoding.txt - удалить?" << endl;
+						ordinal_number++;
+					}
+					if (delete_encoded_text == var_exit::YES)
+					{
+						cout << ordinal_number << " - encoded_text.txt - удалить?" << endl;
+						ordinal_number++;
+					}
+					cout << ordinal_number << " - удалить все" << endl;
+					cin >> var_delete;
+					if (isalpha(var_delete) != 0)
+					{
+						switch(var_delete)
+						{
+						case 1:
+							encod.clear();
+							break;
+						case 2:
+							encoded_text.clear();
+							break;
+						case 3:
+							encod.clear();
+							encoded_text.clear();
+							break;
+						default:
+							cout << "Такого варианта ответа нет" << endl;
+							break;
+						}
+					}
+					else
+					{
+						cout << "Некоректный ответ" << endl;
+					}
+				}
+			}
+			else
+			{
+				error("encoded_text.txt", "encoding.txt");
+			}
 			break;
 		case 6:
 			exit = var_exit::YES;

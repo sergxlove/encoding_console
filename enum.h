@@ -6,11 +6,5 @@ enum var_exit
 	YES,
 	NO
 };
-enum var_empty
-{
-	YES,
-	NO,
-	NOT_VERIFED
-};
 #endif // !_ENUM_H_
 
