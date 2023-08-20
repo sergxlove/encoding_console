@@ -12,7 +12,7 @@ int main()
 	setlocale(LC_ALL, "rus");
 	srand(time(NULL));
 	int exit = var_exit::NO;
-	int var_nav_console;
+	unsigned int var_nav_console;
 	unsigned int value;
 	const int n = 8;
 	int count = 0;
@@ -29,169 +29,200 @@ int main()
 	int delete_encoded_text = var_exit::NO;
 	int j = 1;
 	int ordinal_number = 1;
-	int var_delete;
+	unsigned int var_delete;
+	string var_delete_str;
+	string var_nav_console_str;
 	while (exit != var_exit::YES)
 	{
 		info_console();
-		cin >> var_nav_console;
-		switch (var_nav_console)
+		cin >> var_nav_console_str;
+		try
 		{
-		case 1:
-			path = "encoding.txt";
-			encod.open(path, fstream::out);
-			if (encod.is_open())
+			var_nav_console = stoi(var_nav_console_str);
+			switch (var_nav_console)
 			{
-				done("encodding.txt");
-				encod.clear();
-				value = rand() % 80 + 130;
-				while (count < 33)
+			case 1:
+				path = "encoding.txt";
+				encod.open(path, fstream::out);
+				if (encod.is_open())
 				{
-					code_symbol = bitset<n>(value).to_string();
-					encod << code_symbol << endl;
-					value++;
-					count++;
-				}
-				encod.close();
-			}
-			else
-			{
-				error("encodding.txt");
-			}
-			break;
-		case 2:
-			//SetConsoleCP(1251);
-			//SetConsoleCP(866);
-			path = "encoded_text.txt";
-			encoded_text.open(path,fstream::out);
-			path = "alfabet.txt";
-			alfabet.open(path, fstream::in);
-			path = "encoding.txt";
-			encod.open(path, fstream::in);
-			if (encoded_text.is_open()&&alfabet.is_open()&&encod.is_open())
-			{
-				done("encoding.txt", "encoded_text.txt", "alfabet.txt");
-				cout << "Введите ваш текст (в конце вашего предложения необходимо поставить символ ;)" << endl;
-				encoded_text.clear();
-				getline(cin, text, ';');
-				getline(alfabet, symbol);
-				for (int i = 0;j < text.size();i++)
-				{
-					if (symbol[i] == text[j])
+					done("encodding.txt");
+					encod.clear();
+					value = rand() % 80 + 130;
+					while (count < 33)
 					{
-						line = i + 1;
-						j++;
-						i = -1;
-						for (int iter = 1;iter < line + 1;iter++)
+						code_symbol = bitset<n>(value).to_string();
+						encod << code_symbol << endl;
+						value++;
+						count++;
+					}
+					encod.close();
+				}
+				else
+				{
+					error("encodding.txt");
+				}
+				break;
+			case 2:
+				//SetConsoleCP(1251);
+				//SetConsoleCP(866);
+				path = "encoded_text.txt";
+				encoded_text.open(path, fstream::out);
+				path = "alfabet.txt";
+				alfabet.open(path, fstream::in);
+				path = "encoding.txt";
+				encod.open(path, fstream::in);
+				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
+				{
+					done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					cout << "Введите ваш текст (в конце вашего предложения необходимо поставить символ ;)" << endl;
+					encoded_text.clear();
+					getline(cin, text, ';');
+					getline(alfabet, symbol);
+					for (int i = 0;j < text.size();i++)
+					{
+						if (symbol[i] == text[j])
 						{
-							getline(encod, code_symbol);
-							if (iter == line)
+							line = i + 1;
+							j++;
+							i = -1;
+							for (int iter = 1;iter < line + 1;iter++)
 							{
-								encoded_text << code_symbol << endl;
-								encod.seekg(0);
+								getline(encod, code_symbol);
+								if (iter == line)
+								{
+									encoded_text << code_symbol << endl;
+									encod.seekg(0);
+								}
 							}
 						}
 					}
+					encoded_text.close();
+					alfabet.close();
+					encod.close();
+				}
+				else
+				{
+					error("encoding.txt", "encoded_text.txt", "alfabet.txt");
+				}
+				break;
+			case 3:
+				path = "encoded_text.txt";
+				encoded_text.open(path, fstream::in);
+				if (encoded_text.is_open())
+				{
+					done("encoded_text.txt");
+					while (!encoded_text.eof())
+					{
+						getline(encoded_text, symbol);
+						cout << symbol << endl;
+					}
+					encoded_text.close();
+				}
+				else
+				{
+					error("encoded_text.txt");
+				}
+				break;
+			case 4:
+				path = "encoded_text.txt";
+				encoded_text.open(path, fstream::in);
+				path = "alfabet.txt";
+				alfabet.open(path, fstream::in);
+				path = "encoding.txt";
+				encod.open(path, fstream::in);
+				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
+				{
+					done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+				}
+				else
+				{
+					error("encoding.txt", "encoded_text.txt", "alfabet.txt");
 				}
 				encoded_text.close();
 				alfabet.close();
 				encod.close();
-			}
-			else
-			{
-				error("encoding.txt", "encoded_text.txt", "alfabet.txt");
-			}
-			break;
-		case 3:
-			path = "encoded_text.txt";
-			encoded_text.open(path, fstream::in);
-			if (encoded_text.is_open())
-			{
-				done("encoded_text.txt");
-				while (!encoded_text.eof())
+				break;
+			case 5:
+				path = "encoded_text.txt";
+				encoded_text.open(path, fstream::out);
+				path = "encoding.txt";
+				encod.open(path, fstream::out);
+				if (encod.is_open() && encoded_text.is_open())
 				{
-					getline(encoded_text, symbol);
-					cout << symbol << endl;
-				}
-				encoded_text.close();
-			}
-			else
-			{
-				error("encoded_text.txt");
-			}
-			break;
-		case 4:
-			break;
-		case 5:
-			path = "encoded_text.txt";
-			encoded_text.open(path, fstream::out);
-			path = "encoding.txt";
-			encod.open(path, fstream::out);
-			if (encod.is_open() && encoded_text.is_open())
-			{
-				done("encoded_text.txt", "encoding.txt");
-				if (encod.good() == false || encod.eof() == false)
-				{
-					delete_encod = var_exit::YES;
-				}
-				if (encoded_text.good() == false || encoded_text.eof() == false)
-				{
-					delete_encoded_text = var_exit::YES;
-				}
-				if (delete_encod == var_exit::NO && delete_encoded_text == var_exit::NO)
-				{
-					cout << "Нет доступных файлов для удаления" << endl;
-				}
-				else
-				{
-					cout << "Доступные файлы для удаления" << endl;
-					if (delete_encod == var_exit::YES)
+					done("encoded_text.txt", "encoding.txt");
+					if (encod.good() == false || encod.eof() == false)
 					{
-						cout << ordinal_number << " - encoding.txt - удалить?" << endl;
-						ordinal_number++;
+						delete_encod = var_exit::YES;
 					}
-					if (delete_encoded_text == var_exit::YES)
+					if (encoded_text.good() == false || encoded_text.eof() == false)
 					{
-						cout << ordinal_number << " - encoded_text.txt - удалить?" << endl;
-						ordinal_number++;
+						delete_encoded_text = var_exit::YES;
 					}
-					cout << ordinal_number << " - удалить все" << endl;
-					cin >> var_delete;
-					if (isalpha(var_delete) != 0)
+					if (delete_encod == var_exit::NO && delete_encoded_text == var_exit::NO)
 					{
-						switch(var_delete)
-						{
-						case 1:
-							encod.clear();
-							break;
-						case 2:
-							encoded_text.clear();
-							break;
-						case 3:
-							encod.clear();
-							encoded_text.clear();
-							break;
-						default:
-							cout << "Такого варианта ответа нет" << endl;
-							break;
-						}
+						cout << "Нет доступных файлов для удаления" << endl;
 					}
 					else
 					{
-						cout << "Некоректный ответ" << endl;
+						cout << "Доступные файлы для удаления" << endl;
+						if (delete_encod == var_exit::YES)
+						{
+							cout << ordinal_number << " - encoding.txt - удалить?" << endl;
+							ordinal_number++;
+						}
+						if (delete_encoded_text == var_exit::YES)
+						{
+							cout << ordinal_number << " - encoded_text.txt - удалить?" << endl;
+							ordinal_number++;
+						}
+						cout << ordinal_number << " - удалить все" << endl;
+						cin >> var_delete_str;
+						try
+						{
+							var_delete = stoi(var_delete_str);
+							switch (var_delete)
+							{
+							case 1:
+								encod.clear();
+								break;
+							case 2:
+								encoded_text.clear();
+								break;
+							case 3:
+								encod.clear();
+								encoded_text.clear();
+								break;
+							default:
+								cout << "Такого варианта ответа нет" << endl;
+								break;
+							}
+						}
+						catch (...)
+						{
+							cout << "Некоректный ввод данных" << endl;
+						}
 					}
 				}
+				else
+				{
+					error("encoded_text.txt", "encoding.txt");
+				}
+				encod.close();
+				encoded_text.close();
+				break;
+			case 6:
+				exit = var_exit::YES;
+				break;
+			default:
+				break;
 			}
-			else
-			{
-				error("encoded_text.txt", "encoding.txt");
-			}
-			break;
-		case 6:
-			exit = var_exit::YES;
-			break;
-		default:
-			break;
 		}
+		catch (...)
+		{
+			cout << "Некоректный ввод данных" << endl;
+		}
+		
 	}
 	return 0;
 }
