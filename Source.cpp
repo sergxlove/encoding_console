@@ -32,6 +32,7 @@ int main()
 	unsigned int var_delete;
 	string var_delete_str;
 	string var_nav_console_str;
+	string text_str;
 	while (exit != var_exit::YES)
 	{
 		info_console();
@@ -134,6 +135,28 @@ int main()
 				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
 				{
 					done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					while (!encoded_text.eof())
+					{
+						line = 1;
+						coincidence = false;
+						getline(encoded_text, text_str);
+						if (text_str != "")
+						{
+							while (coincidence != true)
+							{
+								getline(encod, code_symbol);
+								if (code_symbol == text_str)
+								{
+									getline(alfabet, symbol);
+									cout << symbol[line - 1];
+									coincidence = true;
+								}
+								line++;
+							}
+						}
+						encod.seekg(0);
+					}
+					cout << endl;
 				}
 				else
 				{
