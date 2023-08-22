@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include "menu.h"
-void info_console()
+
+void menu::info_console()
 {
 	for (int i = 0; i < 30;i++)
 	{
@@ -21,37 +22,38 @@ void info_console()
 	}
 	std::cout << std::endl;
 }
-void done(std::string name_file)
+
+void menu::done(std::string name_file)
 {
 	std::cout << "Файл " << name_file << " успешно открыт" << std::endl;
 }
 
-void done(std::string name_first_file, std::string name_second_file)
+void menu::done(std::string name_first_file, std::string name_second_file)
 {
 	std::cout << "Файлы " << name_first_file << " , " << name_second_file << " успешно открыты" << std::endl;
 }
 
-void done(std::string name_first_file, std::string name_second_file, std::string name_third_file)
+void menu::done(std::string name_first_file, std::string name_second_file, std::string name_third_file)
 {
 	std::cout << "Файлы " << name_first_file << " , " << name_second_file << " , " << name_third_file << " успешно открыты" << std::endl;
 }
 
-void error(std::string name_file)
+void menu::error(std::string name_file)
 {
 	std::cout << "Ошибка открытия файла " << name_file << std::endl;
 }
 
-void error(std::string name_first_file, std::string name_second_file)
+void menu::error(std::string name_first_file, std::string name_second_file)
 {
 	std::cout << "Ошибка открытия файлов " << name_first_file << " , " << name_second_file << std::endl;
 }
 
-void error(std::string name_first_file, std::string name_second_file, std::string name_third_file)
+void menu::error(std::string name_first_file, std::string name_second_file, std::string name_third_file)
 {
 	std::cout << "Ошибка открытия файлов : " << name_first_file << " , " << name_second_file << " , " << name_third_file << std::endl;
 }
 
-void print_line()
+void menu::print_line()
 {
 	for (int i = 0; i < 30;i++)
 	{
@@ -59,4 +61,3 @@ void print_line()
 	}
 	std::cout << std::endl;
 }
-

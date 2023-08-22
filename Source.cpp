@@ -33,9 +33,10 @@ int main()
 	string var_delete_str;
 	string var_nav_console_str;
 	string text_str;
+	menu m;
 	while (exit != var_exit::YES)
 	{
-		info_console();
+		m.info_console();
 		cin >> var_nav_console_str;
 		try
 		{
@@ -47,7 +48,7 @@ int main()
 				encod.open(path, fstream::out);
 				if (encod.is_open())
 				{
-					done("encodding.txt");
+					m.done("encodding.txt");
 					encod.clear();
 					value = rand() % 80 + 130;
 					while (count < 33)
@@ -57,11 +58,13 @@ int main()
 						value++;
 						count++;
 					}
+					m.print_line();
+					cout << "Кодировка успешно сгенерирована" << endl;
 					encod.close();
 				}
 				else
 				{
-					error("encodding.txt");
+					m.error("encodding.txt");
 				}
 				break;
 			case 2:
@@ -75,7 +78,7 @@ int main()
 				encod.open(path, fstream::in);
 				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
 				{
-					done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					m.done("encoding.txt", "encoded_text.txt", "alfabet.txt");
 					cout << "Введите ваш текст (в конце вашего предложения необходимо поставить символ ;)" << endl;
 					encoded_text.clear();
 					getline(cin, text, ';');
@@ -98,13 +101,15 @@ int main()
 							}
 						}
 					}
+					m.print_line();
+					cout << "Текст успешно закодирован" << endl;
 					encoded_text.close();
 					alfabet.close();
 					encod.close();
 				}
 				else
 				{
-					error("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					m.error("encoding.txt", "encoded_text.txt", "alfabet.txt");
 				}
 				break;
 			case 3:
@@ -112,7 +117,9 @@ int main()
 				encoded_text.open(path, fstream::in);
 				if (encoded_text.is_open())
 				{
-					done("encoded_text.txt");
+					m.done("encoded_text.txt");
+					m.print_line();
+					cout << "Ваш текст в закодированном виде" << endl;
 					while (!encoded_text.eof())
 					{
 						getline(encoded_text, symbol);
@@ -122,7 +129,7 @@ int main()
 				}
 				else
 				{
-					error("encoded_text.txt");
+					m.error("encoded_text.txt");
 				}
 				break;
 			case 4:
@@ -134,7 +141,9 @@ int main()
 				encod.open(path, fstream::in);
 				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
 				{
-					done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					m.done("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					m.print_line();
+					cout << "Ваш текст в рраскодированном виде" << endl;
 					while (!encoded_text.eof())
 					{
 						line = 1;
@@ -160,7 +169,7 @@ int main()
 				}
 				else
 				{
-					error("encoding.txt", "encoded_text.txt", "alfabet.txt");
+					m.error("encoding.txt", "encoded_text.txt", "alfabet.txt");
 				}
 				encoded_text.close();
 				alfabet.close();
@@ -173,7 +182,7 @@ int main()
 				encod.open(path, fstream::out);
 				if (encod.is_open() && encoded_text.is_open())
 				{
-					done("encoded_text.txt", "encoding.txt");
+					m.done("encoded_text.txt", "encoding.txt");
 					if (encod.good() == false || encod.eof() == false)
 					{
 						delete_encod = var_exit::YES;
@@ -188,6 +197,7 @@ int main()
 					}
 					else
 					{
+						m.print_line();
 						cout << "Доступные файлы для удаления" << endl;
 						if (delete_encod == var_exit::YES)
 						{
@@ -220,6 +230,7 @@ int main()
 								cout << "Такого варианта ответа нет" << endl;
 								break;
 							}
+							cout << "Удалено" << endl;
 						}
 						catch (...)
 						{
@@ -229,13 +240,17 @@ int main()
 				}
 				else
 				{
-					error("encoded_text.txt", "encoding.txt");
+					m.error("encoded_text.txt", "encoding.txt");
 				}
 				encod.close();
 				encoded_text.close();
 				break;
 			case 6:
 				exit = var_exit::YES;
+				m.print_line();
+				cout << "Программа завершенна" << endl;
+				cout << "developer sergxlove" << endl;
+				m.print_line();
 				break;
 			default:
 				break;
@@ -245,7 +260,6 @@ int main()
 		{
 			cout << "Некоректный ввод данных" << endl;
 		}
-		
 	}
 	return 0;
 }
