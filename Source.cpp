@@ -79,7 +79,7 @@ int main()
 				if (encoded_text.is_open() && alfabet.is_open() && encod.is_open())
 				{
 					m.done("encoding.txt", "encoded_text.txt", "alfabet.txt");
-					cout << "Введите ваш текст (в конце вашего предложения необходимо поставить символ ;)" << endl;
+					cout << "Введите ваш текст на английстком (в конце вашего предложения необходимо поставить символ ;)" << endl;
 					encoded_text.clear();
 					getline(cin, text, ';');
 					getline(alfabet, symbol);
