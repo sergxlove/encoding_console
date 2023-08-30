@@ -43,7 +43,7 @@ int main()
 			var_nav_console = stoi(var_nav_console_str);
 			switch (var_nav_console)
 			{
-			case 1:
+			case 1: //генераци€ кодировки
 				path = "encoding.txt";
 				encod.open(path, fstream::out);
 				if (encod.is_open())
@@ -67,7 +67,7 @@ int main()
 					m.error("encodding.txt");
 				}
 				break;
-			case 2:
+			case 2: //ввод текста дл€ кодировки
 				//SetConsoleCP(1251);
 				//SetConsoleCP(866);
 				path = "encoded_text.txt";
@@ -112,7 +112,7 @@ int main()
 					m.error("encoding.txt", "encoded_text.txt", "alfabet.txt");
 				}
 				break;
-			case 3:
+			case 3: //вывод текста в закодированном виде
 				path = "encoded_text.txt";
 				encoded_text.open(path, fstream::in);
 				if (encoded_text.is_open())
@@ -132,7 +132,7 @@ int main()
 					m.error("encoded_text.txt");
 				}
 				break;
-			case 4:
+			case 4: //вывод текста в раскодированном виде
 				path = "encoded_text.txt";
 				encoded_text.open(path, fstream::in);
 				path = "alfabet.txt";
@@ -175,7 +175,7 @@ int main()
 				alfabet.close();
 				encod.close();
 				break;
-			case 5:
+			case 5: //очистка документа
 				path = "encoded_text.txt";
 				encoded_text.open(path, fstream::out);
 				path = "encoding.txt";
@@ -245,7 +245,7 @@ int main()
 				encod.close();
 				encoded_text.close();
 				break;
-			case 6:
+			case 6: //выход из программы
 				exit = var_exit::YES;
 				m.print_line();
 				cout << "ѕрограмма завершенна" << endl;
